@@ -7,7 +7,6 @@
 //
 import UIKit
 
-
 class ListViewController: UIViewController {
 
     var tableView: UITableView =  {
@@ -187,13 +186,9 @@ extension ListViewController: UITableViewDelegate {
 extension UINavigationBar {
 
     func setupLarge() {
-        // ... Set up here your tintColor, isTranslucent and other properties if you need
-
         if #available(iOS 11.0, *) {
             prefersLargeTitles = true
-            //largeTitleTextAttributes = ...Set your attributes
         }
-
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = #colorLiteral(red: 0, green: 0.737254902, blue: 0.4078431373, alpha: 1)

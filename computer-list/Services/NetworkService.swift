@@ -23,17 +23,17 @@ enum Result<Model> {
 }
 
 protocol NetworkServiceProtocol {
-    func fetch<Model: Codable> (fromParameters param: String, fromRoute route: Route<Model>, then: @escaping (Result<Model>) -> Void)
+    func fetch<Model: Codable> (fromParameters param: String, fromRoute route: Route<Model>, completion: @escaping (Result<Model>) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
-    func fetch<Model: Codable> (fromParameters param: String, fromRoute route: Route<Model>, then: @escaping (Result<Model>) -> Void) {
+    func fetch<Model: Codable> (fromParameters param: String, fromRoute route: Route<Model>, completion: @escaping (Result<Model>) -> Void) {
         
         let baseUrl = "http://testwork.nsd.naumen.ru/"
         
         guard let url = URL(string: "\(baseUrl+route.endpoint)\(param)")
            else {
-           then(.failure(NSError(domain: baseUrl, code: 500)))
+           completion(.failure(NSError(domain: baseUrl, code: 500)))
            return
        }
         let defaultSession = URLSession(configuration: .default)
@@ -44,7 +44,7 @@ class NetworkService: NetworkServiceProtocol {
             request.httpMethod = "GET"
             dataTask = defaultSession.dataTask(with: request) { data, _, error in
                 if let error = error {
-                    then(.failure(error))
+                    completion(.failure(error))
                 }
                 do {
                     let decoder = JSONDecoder()
@@ -54,16 +54,16 @@ class NetworkService: NetworkServiceProtocol {
                       }
                     }
                     if let data = data, let model = try? decoder.decode(Model.self, from: data) {
-                        then(.success(model))
+                        completion(.success(model))
                     }
                     else {
-                        then(.failure(NSError(  domain: baseUrl,
+                        completion(.failure(NSError(  domain: baseUrl,
                                                 code: 1000,
                                                 userInfo: ["error":"wrong model"]))
                         )
                     }
                 } catch {
-                    then(.failure(error))
+                    completion(.failure(error))
                 }
             }
             dataTask?.resume()

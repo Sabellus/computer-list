@@ -37,12 +37,9 @@ class ListPresenter: ListViewPresenterProtocol {
     func tapOnTheItem(id: Int) {
         router?.showDetail(id: id)
     }
-    func pageCount() {
-        page+=1
-    }
     func getList() {
         let params = "?p=\(page)"
-        network.fetch(fromParameters: params, fromRoute: Routes.list) { [weak self] (result) in
+        network.fetch(fromParameters: params, fromRoute: Routes.list) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -54,7 +51,7 @@ class ListPresenter: ListViewPresenterProtocol {
                     
                     self.list?.items = self.changeItems
                     self.view?.success()
-                    self.pageCount()
+                    self.page+=1
                 case .failure(let error):
                      self.view?.failure(error: error)
                 }
