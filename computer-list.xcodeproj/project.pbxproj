@@ -12,6 +12,10 @@
 		4B16999423EFFAB80056AB59 /* computer_listTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B16999323EFFAB80056AB59 /* computer_listTests.swift */; };
 		4B16999C23EFFC0C0056AB59 /* ListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B16999B23EFFC0C0056AB59 /* ListTest.swift */; };
 		4B16999E23F05D900056AB59 /* RouterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B16999D23F05D900056AB59 /* RouterTest.swift */; };
+		4B231C0923F0B62400315718 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B231C0523F0B62400315718 /* Item+CoreDataClass.swift */; };
+		4B231C0A23F0B62400315718 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B231C0623F0B62400315718 /* Item+CoreDataProperties.swift */; };
+		4B231C0B23F0B62400315718 /* Company+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B231C0723F0B62400315718 /* Company+CoreDataClass.swift */; };
+		4B231C0C23F0B62400315718 /* Company+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B231C0823F0B62400315718 /* Company+CoreDataProperties.swift */; };
 		4B3CD3AF23E753B500DB1E3D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3CD3AE23E753B500DB1E3D /* DetailViewController.swift */; };
 		4B3CD3B123E80A9D00DB1E3D /* IndicatorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3CD3B023E80A9D00DB1E3D /* IndicatorAlert.swift */; };
 		4B9C188223E4F00F00A048CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9C188123E4F00F00A048CB /* AppDelegate.swift */; };
@@ -47,6 +51,10 @@
 		4B16999523EFFAB80056AB59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B16999B23EFFC0C0056AB59 /* ListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTest.swift; sourceTree = "<group>"; };
 		4B16999D23F05D900056AB59 /* RouterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterTest.swift; sourceTree = "<group>"; };
+		4B231C0523F0B62400315718 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		4B231C0623F0B62400315718 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		4B231C0723F0B62400315718 /* Company+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Company+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		4B231C0823F0B62400315718 /* Company+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Company+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		4B3CD3AE23E753B500DB1E3D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4B3CD3B023E80A9D00DB1E3D /* IndicatorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorAlert.swift; sourceTree = "<group>"; };
 		4B9C187E23E4F00F00A048CB /* computer-list.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "computer-list.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +124,10 @@
 		4B9C188023E4F00F00A048CB /* computer-list */ = {
 			isa = PBXGroup;
 			children = (
+				4B231C0523F0B62400315718 /* Item+CoreDataClass.swift */,
+				4B231C0623F0B62400315718 /* Item+CoreDataProperties.swift */,
+				4B231C0723F0B62400315718 /* Company+CoreDataClass.swift */,
+				4B231C0823F0B62400315718 /* Company+CoreDataProperties.swift */,
 				4B9C188123E4F00F00A048CB /* AppDelegate.swift */,
 				4BC7321423E6397F005A17E9 /* Builder.swift */,
 				4BC7321623E639A9005A17E9 /* Router.swift */,
@@ -278,14 +290,18 @@
 				4B9C188C23E4F00F00A048CB /* computer_list.xcdatamodeld in Sources */,
 				4B9C189B23E4F55A00A048CB /* ListCell.swift in Sources */,
 				4B16998A23EFE9090056AB59 /* SameCell.swift in Sources */,
+				4B231C0C23F0B62400315718 /* Company+CoreDataProperties.swift in Sources */,
+				4B231C0923F0B62400315718 /* Item+CoreDataClass.swift in Sources */,
 				4BC7321F23E6D18F005A17E9 /* NetworkService.swift in Sources */,
 				4B9C188623E4F00F00A048CB /* ListViewController.swift in Sources */,
 				4B9C188223E4F00F00A048CB /* AppDelegate.swift in Sources */,
 				4B3CD3AF23E753B500DB1E3D /* DetailViewController.swift in Sources */,
 				4BC7321723E639A9005A17E9 /* Router.swift in Sources */,
 				4BC7321523E6397F005A17E9 /* Builder.swift in Sources */,
+				4B231C0B23F0B62400315718 /* Company+CoreDataClass.swift in Sources */,
 				4BE0D75B23E81BFF0042EEF1 /* DetailPresenter.swift in Sources */,
 				4B16998C23EFEAB80056AB59 /* Same.swift in Sources */,
+				4B231C0A23F0B62400315718 /* Item+CoreDataProperties.swift in Sources */,
 				4BE0D75D23E81C990042EEF1 /* Detail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
