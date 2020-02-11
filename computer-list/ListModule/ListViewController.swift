@@ -60,9 +60,6 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "Computers"
         let nav = self.navigationController?.navigationBar
-//        nav?.barTintColor = #colorLiteral(red: 0, green: 0.737254902, blue: 0.4078431373, alpha: 1)
-//        nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//        nav?.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         nav?.setupLarge()
         view.backgroundColor = #colorLiteral(red: 0, green: 0.737254902, blue: 0.4078431373, alpha: 1)
         tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
@@ -171,7 +168,7 @@ extension ListViewController: UIScrollViewDelegate {
 }
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.section)
+//        print(indexPath.section)
         guard let id = presenter.list?.items?[indexPath.section].id else { return }
         presenter.tapOnTheItem(id: id)
     }
@@ -180,24 +177,5 @@ extension ListViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 18
-    }
-}
-
-extension UINavigationBar {
-
-    func setupLarge() {
-        if #available(iOS 11.0, *) {
-            prefersLargeTitles = true
-        }
-        if #available(iOS 13.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = #colorLiteral(red: 0, green: 0.737254902, blue: 0.4078431373, alpha: 1)
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.shadowColor = .clear
-            standardAppearance = appearance
-            compactAppearance = appearance
-            scrollEdgeAppearance = appearance
-        }
     }
 }

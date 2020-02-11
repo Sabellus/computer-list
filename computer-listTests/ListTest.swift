@@ -85,6 +85,7 @@ class ListTest: XCTestCase {
         network.fetch(fromParameters: "", fromRoute: Routes.list, completion: { result in
             switch result {
             case .success(let list):
+                print(list)
                 break
             case .failure(let error):
                 catchError = error

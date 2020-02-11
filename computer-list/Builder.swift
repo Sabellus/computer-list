@@ -17,7 +17,8 @@ class Builder: BuilderProtocol {
     func createDetailModule(router: RouterProtocol, id: Int) -> UIViewController {
         let view = DetailViewController()
         let network = NetworkService()
-        let presenter = DetailPresenter(view: view, router: router, network: network, id: id)
+        let persistanceManager = PersistanceManager()
+        let presenter = DetailPresenter(view: view, router: router, network: network, id: id, persistanceManager: persistanceManager)
         view.presenter = presenter
         return view
     }

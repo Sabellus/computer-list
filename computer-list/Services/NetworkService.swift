@@ -38,8 +38,6 @@ class NetworkService: NetworkServiceProtocol {
        }
         let defaultSession = URLSession(configuration: .default)
         var dataTask: URLSessionDataTask?
-//        dataTask?.cancel()
-        
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             dataTask = defaultSession.dataTask(with: request) { data, _, error in
@@ -48,25 +46,17 @@ class NetworkService: NetworkServiceProtocol {
                 }
                 do {
                     let decoder = JSONDecoder()
-                    if let data = data {
-                      if let jsonString = String(data: data, encoding: .utf8) {
-                         print(jsonString)
-                      }
-                    }
                     if let data = data, let model = try? decoder.decode(Model.self, from: data) {
                         completion(.success(model))
                     }
                     else {
-                        completion(.failure(NSError(  domain: baseUrl,
-                                                code: 1000,
-                                                userInfo: ["error":"wrong model"]))
-                        )
+                        completion(.failure(NSError(domain: baseUrl, code: 1000, userInfo: ["error":"wrong model"])))
                     }
                 } catch {
                     completion(.failure(error))
                 }
             }
-            dataTask?.resume()
+        dataTask?.resume()
         
     }
     

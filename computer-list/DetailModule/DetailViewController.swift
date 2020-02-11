@@ -101,6 +101,9 @@ class DetailViewController: UIViewController {
     weak var heightConstraint: NSLayoutConstraint!
     
     var isSame = true
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,13 +10,13 @@ import Foundation
 
 
 struct Detail: Codable {
-    let id: Int?
-    let name: String?
+    let id: Int32?
+    var name: String?
     let imageUrl: String?
     let company: Company?
     let description: String?
     struct Company: Codable {
-        let id: Int?
+        let id: Int32?
         let name: String?
     }
 }

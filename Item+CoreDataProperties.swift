@@ -2,7 +2,7 @@
 //  Item+CoreDataProperties.swift
 //  computer-list
 //
-//  Created by Савелий Вепрев on 10.02.2020.
+//  Created by Савелий Вепрев on 11.02.2020.
 //  Copyright © 2020 Савелий Вепрев. All rights reserved.
 //
 //
@@ -21,6 +21,7 @@ extension Item {
     @NSManaged public var id: Int32
     @NSManaged public var name: String?
     @NSManaged public var urlImage: String?
+    @NSManaged public var updatedAt: Date?
     @NSManaged public var company: Company?
 
 }

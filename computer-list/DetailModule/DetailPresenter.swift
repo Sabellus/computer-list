@@ -14,16 +14,18 @@ protocol DetailViewProtocol: class {
 }
 
 protocol DetailViewPresenterProtocol: class {
-    init(view: DetailViewProtocol, router: RouterProtocol, network: NetworkServiceProtocol, id: Int)
+    init(view: DetailViewProtocol, router: RouterProtocol, network: NetworkServiceProtocol, id: Int, persistanceManager: PersistanceManagerProtocol)
     var detail: Detail? { get set }
     var id: Int? { get set }
     var same: [Same]? {get set }
-    func getDetail()
+    func getDetail(completion: @escaping () -> Void)
     func getSame()
     func tapOnTheItem(id: Int)
+    var persistanceManager: PersistanceManagerProtocol? { get set }
+    func createItem()
+    func updateItem(item: Item)
+    func checkItem()
 }
-
-
 
 class DetailPresenter: DetailViewPresenterProtocol {
 
@@ -31,21 +33,69 @@ class DetailPresenter: DetailViewPresenterProtocol {
     var detail: Detail?
     var router: RouterProtocol?
     var network: NetworkServiceProtocol!
+    var persistanceManager: PersistanceManagerProtocol?
     var id: Int?
     var same: [Same]?
     
-    required init(view: DetailViewProtocol, router: RouterProtocol, network: NetworkServiceProtocol, id: Int) {
+    required init(view: DetailViewProtocol, router: RouterProtocol, network: NetworkServiceProtocol, id: Int, persistanceManager: PersistanceManagerProtocol) {
         self.view = view
         self.router = router
         self.network = network
         self.id = id
-        
-        getDetail()
+        self.persistanceManager = persistanceManager
+        checkItem()
     }
     func tapOnTheItem(id: Int) {
         router?.showDetail(id: id)
     }
-    
+    func createItem() {
+        guard let context = persistanceManager?.context else { return }
+        let company = Company(context: context)
+
+        company.name = self.detail?.company?.name ?? ""
+        company.id = self.detail?.company?.id ?? 0
+        
+        let item = Item(context: context)
+        item.name = self.detail?.name
+        item.id = self.detail?.id ?? 0
+        item.descript = self.detail?.description
+        item.urlImage = self.detail?.imageUrl
+        item.company = company
+        item.updatedAt = Date()
+        
+        persistanceManager?.save()
+    }
+    func updateItem(item: Item) {
+        item.name = self.detail?.name
+        item.id = self.detail?.id ?? 0
+        item.descript = self.detail?.description
+        item.urlImage = self.detail?.imageUrl
+        item.company?.name = self.detail?.company?.name
+        item.company?.id = self.detail?.company?.id ?? 0
+        item.updatedAt = Date()
+        persistanceManager?.save()
+    }
+    func checkItem() {
+        guard let items = persistanceManager?.fetchBy(Item.self, attribute: "id", params: id ?? 0)  else { return }
+        if items.isEmpty {
+            getDetail(completion: {
+                self.createItem()
+            })
+        }
+        else if (Date().currentTimeSeconds() - (items.first?.updatedAt?.currentTimeSeconds())!) > 60 {
+            getDetail(completion: {
+                self.updateItem(item: items.first!)
+            })
+        }
+        else {
+            DispatchQueue.main.async {
+                guard let item = items.first else { return }
+                let detail = Detail(id: item.id, name: item.name, imageUrl: item.urlImage, company: Detail.Company(id: item.company?.id, name: item.company?.name), description: item.descript)
+                self.detail = detail
+                self.view?.success()
+            }
+        }
+    }
     func getSame() {
         let params = "/\(id!)/similar"
         network.fetch(fromParameters: params, fromRoute: Routes.same) { [weak self] (result) in
@@ -62,7 +112,7 @@ class DetailPresenter: DetailViewPresenterProtocol {
         }
     }
     
-    func getDetail() {
+    func getDetail(completion: @escaping () -> Void) {
         let params = "/\(id!)"
         network.fetch(fromParameters: params, fromRoute: Routes.detail) { [weak self] (result) in
             guard let self = self else { return }
@@ -71,11 +121,11 @@ class DetailPresenter: DetailViewPresenterProtocol {
                 case .success(let model):
                     self.detail = model
                     self.view?.success()
+                    completion()
                 case .failure(let error):
                      self.view?.failure(error: error)
                 }
             }
         }
     }
-    
 }
