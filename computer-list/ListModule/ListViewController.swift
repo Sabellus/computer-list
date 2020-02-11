@@ -115,6 +115,19 @@ class ListViewController: UIViewController {
         ])
         view.layoutIfNeeded()
      }
+    @objc func connected(sender: UIButton){
+        let someText:String = "\(presenter.list?.items?[sender.tag].name ?? ""), \(presenter.list?.items?[sender.tag].company?.name ?? "")"
+        guard let id = presenter.list?.items?[sender.tag].id else { return }
+        guard let objectsToShare = URL(string: "http://testwork.nsd.naumen.ru/computers/\(id)") else { return }
+        let sharedObjects:[AnyObject] = [objectsToShare as AnyObject,someText as AnyObject]
+        let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.message, UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook,UIActivity.ActivityType.postToTwitter,UIActivity.ActivityType.mail]
+
+        self.present(activityViewController, animated: true, completion: nil)
+
+    }
  }
 
 extension ListViewController: ListViewProtocol{
@@ -152,6 +165,8 @@ extension ListViewController: UITableViewDataSource {
         let list = presenter.list
         cell.nameItemText = list?.items?[indexPath.section].name
         cell.nameCompanyText = list?.items?[indexPath.section].company?.name
+        cell.buttonShare.addTarget(self, action: #selector(connected(sender:)), for: .touchUpInside)
+        cell.buttonShare.tag = indexPath.section
         return cell
     }
 }

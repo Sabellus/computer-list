@@ -49,6 +49,12 @@ class ListCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    let buttonShare: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        return button
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,6 +72,7 @@ class ListCell: UITableViewCell {
         contentView.addSubview(leftLabel)
         contentView.addSubview(bottomLabel)
         contentView.addSubview(rightImageView)
+        contentView.addSubview(buttonShare)
 
          NSLayoutConstraint.activate([
             leftLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -77,7 +84,12 @@ class ListCell: UITableViewCell {
             rightImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             rightImageView.widthAnchor.constraint(equalToConstant: 30),
             rightImageView.heightAnchor.constraint(equalToConstant: 7),
-            rightImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            rightImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            buttonShare.trailingAnchor.constraint(equalTo: rightImageView.trailingAnchor),
+            buttonShare.widthAnchor.constraint(equalTo:  rightImageView.widthAnchor),
+            buttonShare.heightAnchor.constraint(equalToConstant: self.frame.height),
+            buttonShare.centerYAnchor.constraint(equalTo: rightImageView.centerYAnchor)
          ])
     }
     required init?(coder aDecoder: NSCoder) {
